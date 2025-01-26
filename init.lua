@@ -743,6 +743,8 @@ require('lazy').setup({ -- NOTE: Plugins can be added with a link (or for a gith
             },
           },
         },
+        ts_ls = {},
+        js_debug_adapter = {},
         -- clangd = {},
         -- clangd = {},
         -- clangd = {},
