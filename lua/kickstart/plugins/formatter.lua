@@ -21,6 +21,7 @@ return {
         'mix', -- elixir
         'credo', -- elixir
         'sqruff', -- sql
+        'clang_format', -- c, cpp, cs, java, cuda, proto
       },
       -- auto-install configured formatters & linters (with null-ls)
       automatic_installation = true,
@@ -39,6 +40,7 @@ return {
       diagnostics.credo,
       formatting.mix,
       formatting.sqruff,
+      formatting.clang_format,
     }
 
     local augroup = vim.api.nvim_create_augroup('LspFormatting', {})
