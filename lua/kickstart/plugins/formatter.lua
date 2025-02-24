@@ -30,7 +30,7 @@ return {
     local sources = {
       diagnostics.checkmake,
       formatting.prettier.with {
-        filetypes = { 'html', 'json', 'yaml', 'markdown', 'javascript', 'typescript', 'javascriptreact', 'typescriptreact', 'vue', 'angular' },
+        filetypes = { 'html', 'json', 'yaml', 'markdown', 'javascript', 'typescript', 'javascriptreact', 'typescriptreact', 'vue', 'angular', 'css' },
       },
       formatting.stylua,
       formatting.shfmt.with { args = { '-i', '4' } },
