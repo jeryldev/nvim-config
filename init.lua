@@ -191,6 +191,24 @@ vim.keymap.set('n', 'gf', 'gF', {
 vim.keymap.set('n', 'gj', '<cmd>join<cr>', {
   silent = true,
 })
+vim.keymap.set('n', '<leader>fp', function()
+  local path = vim.fn.expand '%:p'
+  vim.fn.setreg('+', path)
+  print('Copied: ' .. path)
+end, {
+  noremap = true,
+  silent = true,
+  desc = 'Copy Full Path',
+})
+vim.keymap.set('n', '<leader>rp', function()
+  local path = vim.fn.expand '%'
+  vim.fn.setreg('+', path)
+  print('Copied: ' .. path)
+end, {
+  noremap = true,
+  silent = true,
+  desc = 'Copy Relative Path',
+})
 
 -- Exit terminal mode in the builtin terminal with a shortcut that is a bit easier
 -- for people to discover. Otherwise, you normally need to press <C-\><C-n>, which
@@ -265,7 +283,7 @@ vim.opt.rtp:prepend(lazypath)
 --
 -- NOTE: Here is where you install your plugins.
 require('lazy').setup({ -- NOTE: Plugins can be added with a link (or for a github repo: 'owner/repo' link).
-  'tpope/vim-sleuth',   -- Detect tabstop and shiftwidth automatically
+  'tpope/vim-sleuth', -- Detect tabstop and shiftwidth automatically
   -- NOTE: Plugins can also be added by using a table,
   -- with the first argument being the link and the following
   -- keys can be used to configure plugin behavior/loading/etc.
@@ -311,7 +329,7 @@ require('lazy').setup({ -- NOTE: Plugins can be added with a link (or for a gith
   --
   -- Then, because we use the `opts` key (recommended), the configuration runs
   -- after the plugin has been loaded as `require(MODULE).setup(opts)`.
-  {                     -- Useful plugin to show you pending keybinds.
+  { -- Useful plugin to show you pending keybinds.
     'folke/which-key.nvim',
     event = 'VimEnter', -- Sets the loading event to 'VimEnter'
     opts = {
@@ -551,7 +569,7 @@ require('lazy').setup({ -- NOTE: Plugins can be added with a link (or for a gith
       {
         'williamboman/mason.nvim',
         config = true,
-      },                                           -- NOTE: Must be loaded before dependants
+      }, -- NOTE: Must be loaded before dependants
       'williamboman/mason-lspconfig.nvim',
       'WhoIsSethDaniel/mason-tool-installer.nvim', -- Useful status updates for LSP.
       -- NOTE: `opts = {}` is the same as calling `require('fidget').setup({})`
