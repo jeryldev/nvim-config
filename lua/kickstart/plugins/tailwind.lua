@@ -5,49 +5,74 @@ return {
   dependencies = { 'nvim-treesitter/nvim-treesitter', 'nvim-telescope/telescope.nvim', 'neovim/nvim-lspconfig' },
   config = function()
     require('tailwind-tools').setup {
-      colors = {
-        documentation = true, -- show document colors
-        suggest = true,       -- show suggestions for colors
+      -- Required fields based on error message
+      extension = {
+        -- Extension options (required field)
+        enabled = true,
       },
-      templates = {
-        -- custom templates for class names suggestions
-        template_string = true,
-        framework_specific = true,
-      },
-      custom_filetypes = { 'templ', 'javascript', 'typescript', 'react', 'html', 'heex', 'eex', 'elixir', 'eelixir', 'lexical' },
-    }
 
-    -- Setup the LSP with expanded Elixir support
-    require('lspconfig').tailwindcss.setup {
-      capabilities = require('cmp_nvim_lsp').default_capabilities(),
-      filetypes = {
-        'html',
-        'javascriptreact',
-        'typescriptreact',
-        'javascript',
-        'typescript',
-        'heex',
-        'ex',
-        'exs',
-        'eex',
-        'elixir',
-        'eelixir',
-        'lexical',
-      },
-      init_options = {
-        userLanguages = {
-          elixir = 'phoenix-heex',
-          eelixir = 'phoenix-heex',
-          heex = 'phoenix-heex',
-          eex = 'phoenix-heex',
+      server = {
+        filetypes = {
+          'html',
+          'javascriptreact',
+          'typescriptreact',
+          'javascript',
+          'typescript',
+          'heex',
+          'ex',
+          'exs',
+          'eex',
+          'elixir',
+          'eelixir',
+          'lexical',
+          'php',
+          'blade',
+          'blade.php',
         },
-      },
-      settings = {
-        tailwindCSS = {
-          experimental = {
-            classRegex = { 'class[:]\\s*"([^"]*)"', "class[:]\\s*'([^']*)'" },
+        init_options = {
+          userLanguages = {
+            -- Elixir templates
+            elixir = 'phoenix-heex',
+            eelixir = 'phoenix-heex',
+            heex = 'phoenix-heex',
+            eex = 'phoenix-heex',
+
+            -- PHP templates
+            blade = 'blade',
+            ['blade.php'] = 'blade',
           },
         },
+        settings = {
+          tailwindCSS = {
+            experimental = {
+              classRegex = {
+                'class[:]\\s*"([^"]*)"',
+                "class[:]\\s*'([^']*)'",
+                'class\\s*=\\s*"([^"]*)"',
+                "class\\s*=\\s*'([^']*)'",
+                '@class\\(\\[([^\\]]*)\\]\\)',
+              },
+            },
+            validate = true,
+            emmetCompletions = true,
+          },
+        },
+      },
+
+      document_color = {
+        enabled = true,
+      },
+
+      conceal = {
+        enabled = false,
+      },
+
+      cmp = {
+        enabled = true,
+      },
+
+      telescope = {
+        enabled = true,
       },
     }
   end,

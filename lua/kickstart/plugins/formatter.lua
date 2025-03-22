@@ -6,27 +6,24 @@ return {
   },
   config = function()
     local null_ls = require 'null-ls'
-    local formatting = null_ls.builtins.formatting   -- to setup formatters
+    local formatting = null_ls.builtins.formatting -- to setup formatters
     local diagnostics = null_ls.builtins.diagnostics -- to setup linters
-
     -- list of formatters & linters for mason to install
     require('mason-null-ls').setup {
       ensure_installed = {
         'checkmake',
         'prettier', -- ts/js formatter
-        'stylua',   -- lua formatter
+        'stylua', -- lua formatter
         'eslint_d', -- ts/js linter
         'shfmt',
         'ruff',
-        'mix',          -- elixir
-        'credo',        -- elixir
-        'sqruff',       -- sql
         'clang_format', -- c, cpp, cs, java, cuda, proto
+        'pint', -- php (Laravel)
+        'phpstan', -- php
       },
       -- auto-install configured formatters & linters (with null-ls)
       automatic_installation = true,
     }
-
     local sources = {
       diagnostics.checkmake,
       formatting.prettier.with {
@@ -42,8 +39,9 @@ return {
       formatting.mix,
       formatting.sqruff,
       formatting.clang_format,
+      formatting.pint, -- Laravel's official PHP code style tool
+      diagnostics.phpstan, -- PHP static analysis
     }
-
     local augroup = vim.api.nvim_create_augroup('LspFormatting', {})
     null_ls.setup {
       -- debug = true, -- Enable debug mode. Inspect logs with :NullLsLog.
